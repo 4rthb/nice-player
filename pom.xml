@@ -52,6 +52,7 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -74,7 +75,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>tcp.projeto.niceplayer/tcp.projeto.niceplayer.HelloApplication</mainClass>
+                            <mainClass>tcp.projeto.niceplayer/tcp.projeto.niceplayer.NiceApplication</mainClass>
                         </configuration>
                     </execution>
                 </executions>

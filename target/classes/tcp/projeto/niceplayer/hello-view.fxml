@@ -11,27 +11,27 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <GridPane alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
-          fx:controller="tcp.projeto.niceplayer.HelloController" hgap="10" vgap="10"
+          fx:controller="tcp.projeto.niceplayer.NiceController" hgap="10" vgap="10"
           styleClass="root">
 
     <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
     <Label text="NicePlayer" id="logoText" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="10"
            maxWidth="Infinity" GridPane.hgrow="ALWAYS" styleClass="h3"/>
 
-    <TextArea id="userInput" promptText="Escreva sua música aqui" GridPane.columnIndex="0" GridPane.rowIndex="1"
+    <TextArea fx:id="userInput" promptText="Escreva sua música aqui" GridPane.columnIndex="0" GridPane.rowIndex="1"
                GridPane.columnSpan="14" maxWidth="Infinity" GridPane.hgrow="ALWAYS" styleClass="text-primary"/>
 
-    <Button onAction="#onPlay" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
+    <Button fx:id="playButton" onAction="#onPlay" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
         <graphic>
             <FontIcon iconLiteral="far-play-circle" iconSize="24"/>
         </graphic>
     </Button>
-    <Button onAction="#onPause" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
+    <Button fx:id="pauseButton" disable="true" onAction="#onPause" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
         <graphic>
             <FontIcon iconLiteral="far-pause-circle" iconSize="24"/>
         </graphic>
     </Button>
-    <Button onAction="#onStop" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" styleClass="btn, btn-default">
+    <Button fx:id="stopButton" disable="true" onAction="#onStop" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" styleClass="btn, btn-default">
         <graphic>
             <FontIcon iconLiteral="far-stop-circle" iconSize="24"/>
         </graphic>
@@ -41,7 +41,7 @@
     <ProgressBar GridPane.columnIndex="6" GridPane.rowIndex="2" maxWidth="Infinity" GridPane.hgrow="ALWAYS"
                  minWidth="100" GridPane.fillWidth="true" styleClass="progress-bar-primary"/>
 
-    <Button onAction="#onTrash" GridPane.columnIndex="11" GridPane.rowIndex="2" GridPane.columnSpan="1" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
+    <Button fx:id="trashButton" onAction="#onTrash" GridPane.columnIndex="11" GridPane.rowIndex="2" GridPane.columnSpan="1" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
         <graphic>
             <FontIcon iconLiteral="far-trash-alt" iconSize="24"/>
         </graphic>
