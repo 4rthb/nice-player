@@ -4,19 +4,22 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class Parser {
-    private Tokens[] notes, commands;
+    private Tokens[] tokens;
 
-    public Tokens getNotesByID(int id){
-        if (id >= notes.length){
-            id = notes.length-1;
+    public Tokens getNotesByID(int id) {
+        if (id >= tokens.length){
+            id = tokens.length-1;
         }
-        return this.notes[id];
+        return tokens[id];
     }
-    public Tokens getCommandsByID(int id){
-        if (id >= commands.length){
-            id = commands.length-1;
-        }
-        return this.commands[id];
+    public void parseText(String inputString) {
+        
     }
-    
+    public org.jfugue.pattern.Pattern getMusic() {
+        org.jfugue.pattern.Pattern newPattern; 
+
+
+
+        return newPattern;
+    }
 }
