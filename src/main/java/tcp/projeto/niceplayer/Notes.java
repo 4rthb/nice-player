@@ -1,4 +1,4 @@
-package src.main.java.tcp.projeto.niceplayer;
+package tcp.projeto.niceplayer;
 
 public class Notes extends Tokens {
     private int octaveCounter = 0;
@@ -10,10 +10,13 @@ public class Notes extends Tokens {
         }
         octaveCounter += 1;
     }
+    public void setOctaveCounter(int num) {
+        octaveCounter = num;
+    }
     public int getOctaveCounter() {
         return octaveCounter;
     }
-    public String getTokens(){
+    public String getToken() {
         return token + octaveCounter;
     }
 }

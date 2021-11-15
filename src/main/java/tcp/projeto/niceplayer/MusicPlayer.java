@@ -1,28 +1,29 @@
-package src.main.java.tcp.projeto.niceplayer;
+package tcp.projeto.niceplayer;
 
+
+import java.util.ArrayList;
 
 public class MusicPlayer {
-    private src.main.java.tcp.projeto.niceplayer.Translator translator;
-    public void setTranslator(src.main.java.tcp.projeto.niceplayer.Translator translator){
+    private Translator translator;
+    public void setTranslator(Translator translator){
         this.translator = translator;
     }
-    /*
     public void pause() {
-        if(managedPlayer.isPaused()){
-            this.translator.pause();
+        if(!translator.isPaused()){
+            translator.pause();
         }
     }
     public void resume() {
-        if(managedPlayer.isPaused()){ 
-            managedPlayer.resume();
+        if(translator.isPaused()){
+            translator.resume();
         }
     }
     public void reset() {
-        managedPlayer.reset();
+        translator.reset();
     }
-    public void play(src.main.java.tcp.projeto.niceplayer.Music music){
-        Pattern pattern = new Pattern(music.getPattern())
-                            .setTempo(music.getTempo());
-        player.play(pattern);
-    }*/
+    public void play(ArrayList<Tokens> parsedInput){
+        if(translator.isPlaying()){
+            translator.play(parsedInput);
+        }
+    }
 }

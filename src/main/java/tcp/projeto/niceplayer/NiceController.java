@@ -81,6 +81,7 @@ public class NiceController {
 
     @FXML
     protected void onTrash() {
+        managedPlayer.reset();
         userInput.clear();
     }
 }

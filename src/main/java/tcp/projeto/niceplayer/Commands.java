@@ -1,7 +1,6 @@
-package src.main.java.tcp.projeto.niceplayer;
+package tcp.projeto.niceplayer;
 
 import java.util.regex.Pattern;
-
 
 public class Commands extends Tokens { 
     private Action MappingTokenToAction() {
