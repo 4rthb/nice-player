@@ -15,6 +15,8 @@
 <?import javafx.scene.control.MenuItem?>
 
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <VBox fx:controller="tcp.projeto.niceplayer.NiceController" xmlns:fx="http://javafx.com/fxml" styleClass="root">
     <MenuBar useSystemMenuBar="true" styleClass="nav">
         <Menu text="Arquivo">
@@ -37,9 +39,11 @@
     </MenuBar>
 
     <GridPane alignment="CENTER" hgap="10" vgap="10">
-        <padding><Insets top="10" right="0" bottom="10" left="10"/></padding>
-        <Label text="NicePlayer" id="logoText" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="10"
-               maxWidth="Infinity" GridPane.hgrow="ALWAYS" styleClass="h3"/>
+        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+        <ImageView GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="10"
+                    GridPane.hgrow="ALWAYS">
+            <Image url="@logo.png" requestedWidth="200" smooth="true" preserveRatio="true"/>
+        </ImageView>
 
         <TextArea fx:id="userInput" promptText="Escreva sua música aqui" GridPane.columnIndex="0" GridPane.rowIndex="2"
                   GridPane.columnSpan="14" maxWidth="Infinity" GridPane.hgrow="ALWAYS" styleClass="text-primary"/>
