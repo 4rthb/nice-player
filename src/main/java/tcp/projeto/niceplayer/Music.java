@@ -1,9 +1,9 @@
-package src.main.java.tcp.projeto.niceplayer;
+package tcp.projeto.niceplayer;
 
 public class Music {
     private String pattern, tempo, instrument;
-    private src.main.java.tcp.projeto.niceplayer.Notes notes;
-    private src.main.java.tcp.projeto.niceplayer.Commands commands;
+    private Notes notes;
+    private Commands commands;
 
     public String getPattern(){
         return this.pattern;

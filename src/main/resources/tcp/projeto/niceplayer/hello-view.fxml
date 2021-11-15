@@ -10,40 +10,64 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<GridPane alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
-          fx:controller="tcp.projeto.niceplayer.NiceController" hgap="10" vgap="10"
-          styleClass="root">
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
 
-    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-    <Label text="NicePlayer" id="logoText" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="10"
-           maxWidth="Infinity" GridPane.hgrow="ALWAYS" styleClass="h3"/>
+<?import javafx.scene.layout.VBox?>
+<VBox fx:controller="tcp.projeto.niceplayer.NiceController" xmlns:fx="http://javafx.com/fxml" styleClass="root">
+    <MenuBar useSystemMenuBar="true" styleClass="nav">
+        <Menu text="Arquivo">
+            <MenuItem text="Novo" onAction="#onNew" />
+            <MenuItem text="Carregar arquivo" onAction="#onOpen" />
+            <MenuItem text="Salvar texto" onAction="#onSaveTXT" />
+            <MenuItem text="Salvar MIDI" onAction="#onSaveMIDI" />
+        </Menu>
+        <Menu text="Ajuda">
+            <MenuItem style="-fx-font-family: monospace;" text="! (exclamação)        Trocar instrumento para Agogo" />
+            <MenuItem style="-fx-font-family: monospace;" text="Outra vogal           Trocar instrumento para Hapsichord" />
+            <MenuItem style="-fx-font-family: monospace;" text="Consoante             Repete a última nota" />
+            <MenuItem style="-fx-font-family: monospace;" text="Dígito                Troca para instrumento ATUAL + dígito" />
+            <MenuItem style="-fx-font-family: monospace;" text="? ou .                Aumentar uma oitava" />
+            <MenuItem style="-fx-font-family: monospace;" text="Nova linha            Trocar instrumento para Tubular Bells" />
+            <MenuItem style="-fx-font-family: monospace;" text="; (ponto e vírgula)   Trocar instrumento para Pan Flute" />
+            <MenuItem style="-fx-font-family: monospace;" text=", (vírgula)           Trocar instrumento para Church Organ" />
+            <MenuItem style="-fx-font-family: monospace;" text="Outro caractere       Repete última nota" />
+        </Menu>
+    </MenuBar>
 
-    <TextArea fx:id="userInput" promptText="Escreva sua música aqui" GridPane.columnIndex="0" GridPane.rowIndex="1"
-               GridPane.columnSpan="14" maxWidth="Infinity" GridPane.hgrow="ALWAYS" styleClass="text-primary"/>
+    <GridPane alignment="CENTER" hgap="10" vgap="10">
+        <padding><Insets top="10" right="0" bottom="10" left="10"/></padding>
+        <Label text="NicePlayer" id="logoText" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="10"
+               maxWidth="Infinity" GridPane.hgrow="ALWAYS" styleClass="h3"/>
 
-    <Button fx:id="playButton" onAction="#onPlay" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
-        <graphic>
-            <FontIcon iconLiteral="far-play-circle" iconSize="24"/>
-        </graphic>
-    </Button>
-    <Button fx:id="pauseButton" disable="true" onAction="#onPause" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
-        <graphic>
-            <FontIcon iconLiteral="far-pause-circle" iconSize="24"/>
-        </graphic>
-    </Button>
-    <Button fx:id="stopButton" disable="true" onAction="#onStop" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" styleClass="btn, btn-default">
-        <graphic>
-            <FontIcon iconLiteral="far-stop-circle" iconSize="24"/>
-        </graphic>
-    </Button>
+        <TextArea fx:id="userInput" promptText="Escreva sua música aqui" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                  GridPane.columnSpan="14" maxWidth="Infinity" GridPane.hgrow="ALWAYS" styleClass="text-primary"/>
+
+        <Button fx:id="playButton" onAction="#onPlay" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
+            <graphic>
+                <FontIcon iconLiteral="far-play-circle" iconSize="24"/>
+            </graphic>
+        </Button>
+        <Button fx:id="pauseButton" disable="true" onAction="#onPause" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.columnSpan="2" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
+            <graphic>
+                <FontIcon iconLiteral="far-pause-circle" iconSize="24"/>
+            </graphic>
+        </Button>
+        <Button fx:id="stopButton" disable="true" onAction="#onStop" GridPane.columnIndex="4" GridPane.rowIndex="3" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" styleClass="btn, btn-default">
+            <graphic>
+                <FontIcon iconLiteral="far-stop-circle" iconSize="24"/>
+            </graphic>
+        </Button>
 
 
-    <ProgressBar GridPane.columnIndex="6" GridPane.rowIndex="2" maxWidth="Infinity" GridPane.hgrow="ALWAYS"
-                 minWidth="100" GridPane.fillWidth="true" styleClass="progress-bar-primary"/>
+        <ProgressBar GridPane.columnIndex="6" GridPane.rowIndex="3" maxWidth="Infinity" GridPane.hgrow="ALWAYS"
+                     minWidth="100" GridPane.fillWidth="true" styleClass="progress-bar-primary"/>
 
-    <Button fx:id="trashButton" onAction="#onTrash" GridPane.columnIndex="11" GridPane.rowIndex="2" GridPane.columnSpan="1" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
-        <graphic>
-            <FontIcon iconLiteral="far-trash-alt" iconSize="24"/>
-        </graphic>
-    </Button>
-</GridPane>
+        <Button fx:id="trashButton" onAction="#onTrash" GridPane.columnIndex="11" GridPane.rowIndex="3" GridPane.columnSpan="1" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
+            <graphic>
+                <FontIcon iconLiteral="far-trash-alt" iconSize="24"/>
+            </graphic>
+        </Button>
+    </GridPane>
+</VBox>

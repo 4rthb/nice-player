@@ -1,9 +1,9 @@
-package src.main.java.tcp.projeto.niceplayer;
+package tcp.projeto.niceplayer;
 
 public class Parser {
-    private src.main.java.tcp.projeto.niceplayer.Tokens[] tokens;
+    private Tokens[] tokens;
 
-    public src.main.java.tcp.projeto.niceplayer.Tokens getNotesByID(int id) {
+    public Tokens getNotesByID(int id) {
         if (id >= tokens.length){
             id = tokens.length-1;
         }

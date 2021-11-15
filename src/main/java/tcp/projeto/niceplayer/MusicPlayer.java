@@ -1,9 +1,8 @@
-package src.main.java.tcp.projeto.niceplayer;
-
+package tcp.projeto.niceplayer;
 
 public class MusicPlayer {
-    private src.main.java.tcp.projeto.niceplayer.Translator translator;
-    public void setTranslator(src.main.java.tcp.projeto.niceplayer.Translator translator){
+    private Translator translator;
+    public void setTranslator(Translator translator){
         this.translator = translator;
     }
     /*
@@ -20,7 +19,7 @@ public class MusicPlayer {
     public void reset() {
         managedPlayer.reset();
     }
-    public void play(src.main.java.tcp.projeto.niceplayer.Music music){
+    public void play(Music music){
         Pattern pattern = new Pattern(music.getPattern())
                             .setTempo(music.getTempo());
         player.play(pattern);

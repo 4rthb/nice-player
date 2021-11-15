@@ -3,6 +3,11 @@ package tcp.projeto.niceplayer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import org.jfugue.player.ManagedPlayer;
 import org.jfugue.player.ManagedPlayerListener;
 import org.jfugue.player.Player;
@@ -82,5 +87,21 @@ public class NiceController {
     @FXML
     protected void onTrash() {
         userInput.clear();
+    }
+
+    @FXML
+    protected void onNew() {
+    }
+
+    @FXML
+    protected void onOpen() {
+    }
+
+    @FXML
+    protected void onSaveMIDI() {
+    }
+
+    @FXML
+    protected void onSaveTXT() {
     }
 }

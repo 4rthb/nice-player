@@ -1,4 +1,4 @@
-package src.main.java.tcp.projeto.niceplayer;
+package tcp.projeto.niceplayer;
 
 public class Translator {
 

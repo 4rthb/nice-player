@@ -1,5 +1,4 @@
-package src.main.java.tcp.projeto.niceplayer;
-
+package tcp.projeto.niceplayer;
 import java.util.regex.Pattern;
 
 
