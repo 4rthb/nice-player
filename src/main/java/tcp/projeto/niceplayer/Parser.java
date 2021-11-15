@@ -1,12 +1,9 @@
 package src.main.java.tcp.projeto.niceplayer;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-
 public class Parser {
-    private Tokens[] tokens;
+    private src.main.java.tcp.projeto.niceplayer.Tokens[] tokens;
 
-    public Tokens getNotesByID(int id) {
+    public src.main.java.tcp.projeto.niceplayer.Tokens getNotesByID(int id) {
         if (id >= tokens.length){
             id = tokens.length-1;
         }
@@ -15,11 +12,11 @@ public class Parser {
     public void parseText(String inputString) {
         
     }
-    public org.jfugue.pattern.Pattern getMusic() {
+   /* public org.jfugue.pattern.Pattern getMusic() {
         org.jfugue.pattern.Pattern newPattern; 
 
 
 
-        return newPattern;
-    }
+        //return newPattern;
+    }*/
 }
