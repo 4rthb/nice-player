@@ -1,6 +1,5 @@
 package tcp.projeto.niceplayer;
 
-
 import java.util.ArrayList;
 
 public class MusicPlayer {
@@ -22,7 +21,7 @@ public class MusicPlayer {
         translator.reset();
     }
     public void play(ArrayList<Tokens> parsedInput){
-        if(translator.isPlaying()){
+        if(!translator.isPlaying()){
             translator.play(parsedInput);
         }
     }

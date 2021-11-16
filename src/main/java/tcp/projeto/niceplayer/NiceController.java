@@ -59,11 +59,14 @@ public class NiceController {
     @FXML
     protected void onPlay() {
         try {
-            managedPlayer.start(player.getSequence(userInput.getText()));
+            MusicPlayer MPlayer = new MusicPlayer();
+            MPlayer.setTranslator(new Translator());
+            Parser.parseText(userInput.getText());
+            MPlayer.play(Parser.tokens);
+//            managedPlayer.start(player.getSequence(userInput.getText()));
         } catch (Exception e) {
-
+            System.out.println("Exception " + e.toString() + " detected");
         }
-
     }
 
     @FXML

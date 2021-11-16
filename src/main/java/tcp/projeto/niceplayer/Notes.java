@@ -1,19 +1,19 @@
 package tcp.projeto.niceplayer;
 
 public class Notes extends Tokens {
-    private int octaveCounter = 0;
+    private static int octaveCounter = 4;
 
-    public void IncreaseOctave() {
+    public static void IncreaseOctave() {
         if(octaveCounter == 10) {
             octaveCounter = 4;
             return;
         }
         octaveCounter += 1;
     }
-    public void setOctaveCounter(int num) {
+    public static void setOctaveCounter(int num) {
         octaveCounter = num;
     }
-    public int getOctaveCounter() {
+    public static int getOctaveCounter() {
         return octaveCounter;
     }
     public String getToken() {
