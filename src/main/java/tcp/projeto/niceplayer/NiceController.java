@@ -107,6 +107,7 @@ public class NiceController {
                 return;
             }
         }
+        userInput.setText("");
     }
 
     @FXML
@@ -119,11 +120,11 @@ public class NiceController {
         );
         File selectedFile = fileChooser.showOpenDialog(userInput.getScene().getWindow());
 
-        try {
-            userInput.setText((new FileReader(selectedFile)).toString());
-        } catch(FileNotFoundException e) {
+        if(selectedFile == null) return;
 
-        };
+        Input input = new Input(selectedFile.getAbsolutePath());
+        input.readFile();
+        userInput.setText(input.getTextStream());
     }
 
     @FXML
@@ -144,5 +145,8 @@ public class NiceController {
                 new FileChooser.ExtensionFilter("Arquivo TXT", "*.txt")
         );
         File selectedFile = fileChooser.showSaveDialog(userInput.getScene().getWindow());
+        Input input = new Input(selectedFile.getAbsolutePath());
+        input.setTextStream(userInput.getText());
+        input.saveFile();
     }
 }
