@@ -145,6 +145,9 @@ public class NiceController {
                 new FileChooser.ExtensionFilter("Arquivo TXT", "*.txt")
         );
         File selectedFile = fileChooser.showSaveDialog(userInput.getScene().getWindow());
+
+        if(selectedFile == null) return;
+
         Input input = new Input(selectedFile.getAbsolutePath());
         input.setTextStream(userInput.getText());
         input.saveFile();
