@@ -10,8 +10,8 @@ public class Notes extends Tokens {
         }
         octaveCounter += 1;
     }
-    public static void setOctaveCounter(int num) {
-        octaveCounter = num;
+    public static void resetOctaveCounter() {
+        octaveCounter = 4;
     }
     public static int getOctaveCounter() {
         return octaveCounter;

@@ -29,11 +29,10 @@ public class NiceController {
     @FXML private Button stopButton;
     @FXML private Button trashButton;
 
-    private MusicPlayer MPlayer = new MusicPlayer();
-    private Translator translator = new Translator();
+    private MusicPlayer NicePlayer = new MusicPlayer();
 
     public NiceController() {
-        translator.getManagedPlayer().addManagedPlayerListener(new ManagedPlayerListener() {
+        NicePlayer.getManagedPlayer().addManagedPlayerListener(new ManagedPlayerListener() {
             @Override
             public void onStarted(Sequence sequence) {
                 pauseButton.setDisable(false);
@@ -60,30 +59,29 @@ public class NiceController {
 
     @FXML
     protected void onPlay() {
-        try {
-
-            MPlayer.setTranslator(translator);
-            Parser.parseText(userInput.getText());
-            MPlayer.play(Parser.tokens);
-//            managedPlayer.start(player.getSequence(userInput.getText()));
-        } catch (Exception e) {
-            System.out.println("Exception " + e.toString() + " detected");
+        if(NicePlayer.getManagedPlayer().isPaused()) {
+            NicePlayer.resume();
+            return;
         }
+        Translator translator = new Translator();
+        NicePlayer.setTranslator(translator);
+        Parser.parseText(userInput.getText());
+        NicePlayer.play(Parser.tokens);
     }
 
     @FXML
     protected void onPause() {
-        translator.pause();
+        NicePlayer.pause();
     }
 
     @FXML
     protected void onStop() {
-        translator.reset();
+        NicePlayer.reset();
     }
 
     @FXML
     protected void onTrash() {
-        translator.reset();
+        NicePlayer.reset();
         userInput.clear();
     }
 

@@ -1,20 +1,22 @@
 package tcp.projeto.niceplayer;
 
 import java.util.ArrayList;
+import org.jfugue.midi.MidiParserListener;
 import org.jfugue.pattern.Pattern;
 import org.jfugue.player.ManagedPlayer;
-import org.jfugue.player.ManagedPlayerListener;
 import org.jfugue.player.Player;
+import org.jfugue.theory.Note;
+import org.staccato.StaccatoParser;
 
 public class Translator {
-    private static Player player;
-    private static ManagedPlayer managedPlayer;
+    private Player player;
+    private ManagedPlayer managedPlayer;
     private ArrayList<ArrayList<String>> pseudoPatterns;
     private ArrayList<Tokens> tokenList;
-    private int volume = 70, instrument = 0, row = 0, cursor = 0;
+    private int volume = 15, instrument = 0, row = 0, cursor = 1;
 
-    public Translator(){
-        player = new Player();
+    public void setPlayer(Player player){
+        this.player = player;
         managedPlayer = player.getManagedPlayer();
     }
     public void pause() {
@@ -35,10 +37,30 @@ public class Translator {
 
     public void play(ArrayList<Tokens> parsedInput) {
         tokenList = parsedInput;
+        for(Tokens token: parsedInput){
+            System.out.println(token.getToken());
+        }
+
         ArrayList<Pattern> patterns = getMusic();
 
+        StaccatoParser staccatoParser = new StaccatoParser();
+        MidiParserListener midiParserListener = new MidiParserListener();
+        staccatoParser.addParserListener(midiParserListener);
+
         for(Pattern pattern : patterns) {
-            player.play(pattern);
+            System.out.print("Pattern: ");
+            System.out.println(pattern);
+            try {
+                System.out.print("Sequence: ");
+                staccatoParser.parse(pattern);
+                System.out.println(midiParserListener.getSequence());
+                managedPlayer.start(midiParserListener.getSequence());
+                Notes.resetOctaveCounter();
+            } catch (Exception e) {
+                System.out.println("Invalid MIDI detected!");
+                e.printStackTrace();
+            }
+
         }
     }
     public ArrayList<Pattern> getMusic() {
@@ -46,23 +68,19 @@ public class Translator {
         pseudoPatterns = new ArrayList<ArrayList<String>>();
         pseudoPatterns.add(new ArrayList<String>());
 
+        pseudoPatterns.get(row).add(cursor - 1, ":CON(7, " + volume + ")");
         for (int i = 0; i < tokenList.size(); i++, cursor++) {
-            System.out.println(tokenList.get(i).getToken());
-            if(pseudoPatterns.size() == row) {
-                pseudoPatterns.add(new ArrayList<String>());
-            }
             if(tokenList.get(i) instanceof Notes) {
                 pseudoPatterns.get(row).add(cursor, tokenList.get(i).getToken());
                 continue;
             }
             actionHandler(((Commands) tokenList.get(i)).getAction());
         }
-        pseudoPatterns.get(row).add(cursor-1, ":CON(7, " + volume + ")");
 
         for(int i = 0; i < pseudoPatterns.size(); i++) {
             String completePattern;
-            completePattern = pseudoPatterns.get(i).get(pseudoPatterns.get(i).size() - 1) + " ";
-            for(int j = 0; j < pseudoPatterns.get(i).size() - 1; j++) {
+            completePattern = pseudoPatterns.get(i).get(0) + " ";
+            for(int j = 1; j < pseudoPatterns.get(i).size(); j++) {
                 completePattern += pseudoPatterns.get(i).get(j) + " ";
             }
             patternList.add(new Pattern(completePattern));
@@ -70,8 +88,6 @@ public class Translator {
 
         return patternList;
     }
-
-    public ManagedPlayer getManagedPlayer() { return managedPlayer; }
 
     private void actionHandler(Commands.Action action) {
         switch (action) {
@@ -89,46 +105,48 @@ public class Translator {
     }
     private void setAgogoHandler() {
         instrument = 113;
-        pseudoPatterns.get(row).add(cursor, "I[" + volume + "]");
+        pseudoPatterns.get(row).add(cursor, "I" + volume);
     }
     private void setHarpsiHandler() {
         instrument = 6;
-        pseudoPatterns.get(row).add(cursor, "I[" + instrument + "]");
+        pseudoPatterns.get(row).add(cursor, "I" + instrument);
     }
     private void setBellsHandler() {
         instrument = 14;
-        pseudoPatterns.get(row).add(cursor, "I[" + instrument + "]");
+        pseudoPatterns.get(row).add(cursor, "I" + instrument);
     }
     private void setFluteHandler() {
         instrument = 75;
-        pseudoPatterns.get(row).add(cursor, "I[" + instrument + "]");
+        pseudoPatterns.get(row).add(cursor, "I" + instrument);
     }
     private void setOrganHandler() {
         instrument = 19;
-        pseudoPatterns.get(row).add(cursor, "I[" + instrument + "]");
+        pseudoPatterns.get(row).add(cursor, "I" + instrument);
     }
     private void changeInstrumentHandler() {
-        instrument += Integer.parseInt(tokenList.get(cursor).getToken());
-        pseudoPatterns.get(row).add(cursor, "I[" + instrument + "]");
+        instrument += Integer.parseInt(tokenList.get(cursor - 1).getToken());
+        pseudoPatterns.get(row).add(cursor, "I" + instrument);
     }
     private void repeatLastHandler() {
-        if(cursor > 0 && tokenList.get(cursor-1) instanceof Notes) {
-            pseudoPatterns.get(row).add(cursor, tokenList.get(cursor-1).toString());
+        if(cursor > 1 && tokenList.get(cursor-2) instanceof Notes) {
+            pseudoPatterns.get(row).add(cursor, tokenList.get(cursor-2).getToken());
             return;
         }
         pseudoPatterns.get(row).add(cursor, "R");
     }
     private void volumeUpHandler() {
         volume *= 2;
-        if (volume > 16383) {
-            volume = 70;
+        if (volume > 128) {
+            volume = 15;
         }
+        row++;
+        cursor = 0;
+        pseudoPatterns.add(new ArrayList<String>());
         pseudoPatterns.get(row).add(cursor, ":CON(7, " + volume + ")");
-        row += 1;
-        cursor = -1;
     }
     private void incOctaveHandler() {
         Notes.IncreaseOctave();
+        cursor-=1;
     }
 
 }
