@@ -25,9 +25,4 @@ public class MusicPlayer {
             translator.play(parsedInput);
         }
     }
-    public void play(Music music){
-        Pattern pattern = new Pattern(music.getPattern())
-                            .setTempo(music.getTempo());
-        player.play(pattern);
-    }
 }
