@@ -11,9 +11,9 @@ import org.staccato.StaccatoParser;
 public class Translator {
     private Player player;
     private ManagedPlayer managedPlayer;
-    private ArrayList<ArrayList<String>> pseudoPatterns;
+    private String completePattern;
     private ArrayList<Tokens> tokenList;
-    private int volume = 15, instrument = 0, row = 0, cursor = 1;
+    private int volume = 15, instrument = 0, cursor;
 
     public void setPlayer(Player player){
         this.player = player;
@@ -37,56 +37,38 @@ public class Translator {
 
     public void play(ArrayList<Tokens> parsedInput) {
         tokenList = parsedInput;
-        for(Tokens token: parsedInput){
-            System.out.println(token.getToken());
-        }
-
-        ArrayList<Pattern> patterns = getMusic();
+        Pattern pattern = getMusic();
 
         StaccatoParser staccatoParser = new StaccatoParser();
         MidiParserListener midiParserListener = new MidiParserListener();
         staccatoParser.addParserListener(midiParserListener);
 
-        for(Pattern pattern : patterns) {
-            System.out.print("Pattern: ");
-            System.out.println(pattern);
+        System.out.print("Pattern: ");
+        System.out.println(pattern);
             try {
-                System.out.print("Sequence: ");
-                staccatoParser.parse(pattern);
-                System.out.println(midiParserListener.getSequence());
-                managedPlayer.start(midiParserListener.getSequence());
-                Notes.resetOctaveCounter();
-            } catch (Exception e) {
-                System.out.println("Invalid MIDI detected!");
-                e.printStackTrace();
-            }
-
+            System.out.print("Sequence: ");
+            staccatoParser.parse(pattern);
+            System.out.println(midiParserListener.getSequence());
+            managedPlayer.start(midiParserListener.getSequence());
+            Notes.resetOctaveCounter();
+        } catch (Exception e) {
+            System.out.println("Invalid MIDI detected!");
+            e.printStackTrace();
         }
     }
-    public ArrayList<Pattern> getMusic() {
-        ArrayList<Pattern> patternList = new ArrayList<Pattern>();
-        pseudoPatterns = new ArrayList<ArrayList<String>>();
-        pseudoPatterns.add(new ArrayList<String>());
+    public Pattern getMusic() {
+        completePattern = "";
 
-        pseudoPatterns.get(row).add(cursor - 1, ":CON(7, " + volume + ")");
-        for (int i = 0; i < tokenList.size(); i++, cursor++) {
-            if(tokenList.get(i) instanceof Notes) {
-                pseudoPatterns.get(row).add(cursor, tokenList.get(i).getToken());
+        completePattern += ":CON(7, " + volume + ")";
+        for (cursor = 0; cursor < tokenList.size(); cursor++) {
+            if(tokenList.get(cursor) instanceof Notes) {
+                completePattern += " " + tokenList.get(cursor).getToken();
                 continue;
             }
-            actionHandler(((Commands) tokenList.get(i)).getAction());
+            actionHandler(((Commands) tokenList.get(cursor)).getAction());
         }
-
-        for(int i = 0; i < pseudoPatterns.size(); i++) {
-            String completePattern;
-            completePattern = pseudoPatterns.get(i).get(0) + " ";
-            for(int j = 1; j < pseudoPatterns.get(i).size(); j++) {
-                completePattern += pseudoPatterns.get(i).get(j) + " ";
-            }
-            patternList.add(new Pattern(completePattern));
-        }
-
-        return patternList;
+        System.out.println(completePattern);
+        return new Pattern(completePattern);
     }
 
     private void actionHandler(Commands.Action action) {
@@ -105,48 +87,43 @@ public class Translator {
     }
     private void setAgogoHandler() {
         instrument = 113;
-        pseudoPatterns.get(row).add(cursor, "I" + volume);
+        completePattern += " I" + instrument;
     }
     private void setHarpsiHandler() {
         instrument = 6;
-        pseudoPatterns.get(row).add(cursor, "I" + instrument);
+        completePattern += " I" + instrument;
     }
     private void setBellsHandler() {
         instrument = 14;
-        pseudoPatterns.get(row).add(cursor, "I" + instrument);
+        completePattern += " I" + instrument;
     }
     private void setFluteHandler() {
         instrument = 75;
-        pseudoPatterns.get(row).add(cursor, "I" + instrument);
+        completePattern += " I" + instrument;
     }
     private void setOrganHandler() {
         instrument = 19;
-        pseudoPatterns.get(row).add(cursor, "I" + instrument);
+        completePattern += " I" + instrument;
     }
     private void changeInstrumentHandler() {
         instrument += Integer.parseInt(tokenList.get(cursor - 1).getToken());
-        pseudoPatterns.get(row).add(cursor, "I" + instrument);
+        completePattern += " I" + instrument;
     }
     private void repeatLastHandler() {
-        if(cursor > 1 && tokenList.get(cursor-2) instanceof Notes) {
-            pseudoPatterns.get(row).add(cursor, tokenList.get(cursor-2).getToken());
+        if(cursor > 1 && tokenList.get(cursor-1) instanceof Notes) {
+            completePattern += " " + tokenList.get(cursor-1).getToken();
             return;
         }
-        pseudoPatterns.get(row).add(cursor, "R");
+        completePattern += " R";
     }
     private void volumeUpHandler() {
         volume *= 2;
         if (volume > 128) {
             volume = 15;
         }
-        row++;
-        cursor = 0;
-        pseudoPatterns.add(new ArrayList<String>());
-        pseudoPatterns.get(row).add(cursor, ":CON(7, " + volume + ")");
+        completePattern += " :CON(7, " + volume + ")";
     }
     private void incOctaveHandler() {
         Notes.IncreaseOctave();
-        cursor-=1;
     }
-
 }

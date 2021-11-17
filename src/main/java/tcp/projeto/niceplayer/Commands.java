@@ -29,7 +29,7 @@ public class Commands extends Tokens {
         if(token.equals("?") || token.equals(".")) {
             return Action.INC_OCTAVE;
         }
-        if(token.equals("\\n")) {
+        if(token.equals("\n")) {
             return Action.INST_BELLS;
         }
         if(token.equals(";")) {

@@ -4,7 +4,7 @@ public class Notes extends Tokens {
     private static int octaveCounter = 4;
 
     public static void IncreaseOctave() {
-        if(octaveCounter == 10) {
+        if(octaveCounter == 7) {
             octaveCounter = 4;
             return;
         }
