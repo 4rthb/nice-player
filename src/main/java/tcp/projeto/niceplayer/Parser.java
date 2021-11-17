@@ -1,22 +1,30 @@
 package tcp.projeto.niceplayer;
 
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+
 public class Parser {
-    private Tokens[] tokens;
+    public static ArrayList<Tokens> tokens;
 
-    public Tokens getNotesByID(int id) {
-        if (id >= tokens.length){
-            id = tokens.length-1;
+    public static Tokens getNotesByID(int id) {
+        if (id >= tokens.size()){
+            id = tokens.size()-1;
         }
-        return tokens[id];
+        return tokens.get(id);
     }
-    public void parseText(String inputString) {
-        
+    public static void parseText(String inputString) {
+        tokens = new ArrayList<Tokens>();
+        Pattern notes = Pattern.compile("[ABCDEFG]");
+        for(int i = 0; i < inputString.length(); i++) {
+            if(!notes.matcher(Character.toString(inputString.charAt(i))).find()) {
+                Commands newToken = new Commands();
+                newToken.setToken(Character.toString(inputString.charAt(i)));
+                tokens.add(newToken);
+                continue;
+            }
+            Notes newToken = new Notes();
+            newToken.setToken(Character.toString(inputString.charAt(i)));
+            tokens.add(newToken);
+        }
     }
-   /* public org.jfugue.pattern.Pattern getMusic() {
-        org.jfugue.pattern.Pattern newPattern; 
-
-
-
-        //return newPattern;
-    }*/
 }

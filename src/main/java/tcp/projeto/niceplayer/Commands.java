@@ -1,7 +1,6 @@
 package tcp.projeto.niceplayer;
 import java.util.regex.Pattern;
 
-
 public class Commands extends Tokens { 
     private Action MappingTokenToAction() {
         Pattern letter = Pattern.compile("[a-zA-Z]");
@@ -21,22 +20,22 @@ public class Commands extends Tokens {
         if(digit.matcher(token).find()) {
             return Action.INST_CHANGE;
         }
-        if(token == " ") {
+        if(token.equals(" ")) {
             return Action.VOL_UP;
         }
-        if(token == "!") {
+        if(token.equals("!")) {
             return Action.INST_AGOGO;
         }
-        if(token == "?" || token == ".") {
+        if(token.equals("?") || token.equals(".")) {
             return Action.INC_OCTAVE;
         }
-        if(token == "\\n") {
+        if(token.equals("\\n")) {
             return Action.INST_BELLS;
         }
-        if(token == ";") {
+        if(token.equals(";")) {
             return Action.INST_FLUTE;
         }
-        if(token == ",") {
+        if(token.equals(",")) {
             return Action.INST_ORGAN;
         }
         return Action.REPEAT_LAST;
