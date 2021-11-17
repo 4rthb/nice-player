@@ -22,8 +22,6 @@ import java.io.FileReader;
 import java.util.Optional;
 
 public class NiceController {
-    private Player player = new Player();
-    private ManagedPlayer managedPlayer = player.getManagedPlayer();
 
     @FXML private TextArea userInput;
     @FXML private Button playButton;
@@ -31,35 +29,27 @@ public class NiceController {
     @FXML private Button stopButton;
     @FXML private Button trashButton;
 
+    private MusicPlayer MPlayer = new MusicPlayer();
+    private Translator translator = new Translator();
+
     public NiceController() {
-        managedPlayer.addManagedPlayerListener(new ManagedPlayerListener() {
+        translator.getManagedPlayer().addManagedPlayerListener(new ManagedPlayerListener() {
             @Override
             public void onStarted(Sequence sequence) {
                 pauseButton.setDisable(false);
                 stopButton.setDisable(false);
             }
-
             @Override
             public void onFinished() {
                 pauseButton.setDisable(true);
                 stopButton.setDisable(true);
             }
-
             @Override
-            public void onPaused() {
-
-            }
-
+            public void onPaused() { }
             @Override
-            public void onResumed() {
-
-            }
-
+            public void onResumed() { }
             @Override
-            public void onSeek(long l) {
-
-            }
-
+            public void onSeek(long l) { }
             @Override
             public void onReset() {
                 pauseButton.setDisable(true);
@@ -71,8 +61,8 @@ public class NiceController {
     @FXML
     protected void onPlay() {
         try {
-            MusicPlayer MPlayer = new MusicPlayer();
-            MPlayer.setTranslator(new Translator());
+
+            MPlayer.setTranslator(translator);
             Parser.parseText(userInput.getText());
             MPlayer.play(Parser.tokens);
 //            managedPlayer.start(player.getSequence(userInput.getText()));
@@ -83,20 +73,17 @@ public class NiceController {
 
     @FXML
     protected void onPause() {
-        if(managedPlayer.isPaused())
-            managedPlayer.resume();
-        else
-            managedPlayer.pause();
+        translator.pause();
     }
 
     @FXML
     protected void onStop() {
-        managedPlayer.reset();
+        translator.reset();
     }
 
     @FXML
     protected void onTrash() {
-        managedPlayer.reset();
+        translator.reset();
         userInput.clear();
     }
 

@@ -3,6 +3,7 @@ package tcp.projeto.niceplayer;
 import java.util.ArrayList;
 import org.jfugue.pattern.Pattern;
 import org.jfugue.player.ManagedPlayer;
+import org.jfugue.player.ManagedPlayerListener;
 import org.jfugue.player.Player;
 
 public class Translator {
@@ -31,6 +32,7 @@ public class Translator {
     public void reset() {
         managedPlayer.reset();
     }
+
     public void play(ArrayList<Tokens> parsedInput) {
         tokenList = parsedInput;
         ArrayList<Pattern> patterns = getMusic();
@@ -68,6 +70,9 @@ public class Translator {
 
         return patternList;
     }
+
+    public ManagedPlayer getManagedPlayer() { return managedPlayer; }
+
     private void actionHandler(Commands.Action action) {
         switch (action) {
             case INST_AGOGO:  setAgogoHandler();         break;
@@ -125,4 +130,5 @@ public class Translator {
     private void incOctaveHandler() {
         Notes.IncreaseOctave();
     }
+
 }
