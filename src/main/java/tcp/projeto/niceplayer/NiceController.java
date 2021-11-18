@@ -1,16 +1,18 @@
 package tcp.projeto.niceplayer;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.jfugue.midi.MidiFileManager;
 import org.jfugue.player.ManagedPlayer;
 import org.jfugue.player.ManagedPlayerListener;
@@ -30,8 +32,10 @@ public class NiceController {
     @FXML private Button pauseButton;
     @FXML private Button stopButton;
     @FXML private Button trashButton;
+    @FXML private ProgressBar progressBar;
 
     private MusicPlayer NicePlayer = new MusicPlayer();
+    private double currentDuration = 1;
 
     public NiceController() {
         NicePlayer.getManagedPlayer().addManagedPlayerListener(new ManagedPlayerListener() {
@@ -57,6 +61,19 @@ public class NiceController {
                 stopButton.setDisable(true);
             }
         });
+        Timeline progressBarUpdater = new Timeline(
+            new KeyFrame(Duration.millis(100),
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        //System.out.println("Logging");
+                        double len = NicePlayer.getManagedPlayer().getTickLength();
+                        if(len > 0)
+                            progressBar.setProgress(NicePlayer.getManagedPlayer().getTickPosition()/len);
+                    }
+                }));
+        progressBarUpdater.setCycleCount(Timeline.INDEFINITE);
+        progressBarUpdater.play();
     }
 
     @FXML
@@ -68,7 +85,8 @@ public class NiceController {
         Translator translator = new Translator();
         NicePlayer.setTranslator(translator);
         Parser.parseText(userInput.getText());
-        NicePlayer.play(Parser.tokens);
+        double duration = NicePlayer.play(Parser.tokens);
+        progressBar.setProgress(0);
     }
 
     @FXML
@@ -78,6 +96,7 @@ public class NiceController {
 
     @FXML
     protected void onStop() {
+        progressBar.setProgress(0);
         NicePlayer.reset();
     }
 
@@ -85,6 +104,7 @@ public class NiceController {
     protected void onTrash() {
         NicePlayer.reset();
         userInput.clear();
+        progressBar.setProgress(0);
     }
 
     @FXML
@@ -98,6 +118,7 @@ public class NiceController {
                 return;
             }
         }
+        progressBar.setProgress(0);
         userInput.setText("");
     }
 
@@ -116,6 +137,7 @@ public class NiceController {
         Input input = new Input(selectedFile.getAbsolutePath());
         input.readFile();
         userInput.setText(input.getTextStream());
+        progressBar.setProgress(0);
     }
 
     @FXML

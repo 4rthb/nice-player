@@ -35,9 +35,9 @@ public class Input {
                 try {
                         File myObj = new File(getFileName());//cria um arquivo
                         if (myObj.createNewFile()) {//caso consiga criar o arquivo
-                                System.out.println("File created: " + myObj.getName());//imprime mensagem informando o nome do arquivo criado
+                                //System.out.println("File created: " + myObj.getName());//imprime mensagem informando o nome do arquivo criado
                         } else {//caso o arquivo já exista
-                                System.out.println("File already exists.");//imprime mensagem de aviso
+                                //System.out.println("File already exists.");//imprime mensagem de aviso
                         }
                 } catch (IOException e) {//caso ocorra um erro
                         //System.out.println("An error occurred.");//imprime mensagem de aviso
