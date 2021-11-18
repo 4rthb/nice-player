@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Input {
-        private String textStream = "A A A ";
+        private String textStream = "";
         private String fileName;
 
         public String getFileName() {
