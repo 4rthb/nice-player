@@ -66,7 +66,7 @@ public class NiceController {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        System.out.println("Logging");
+                        //System.out.println("Logging");
                         double len = NicePlayer.getManagedPlayer().getTickLength();
                         if(len > 0)
                             progressBar.setProgress(NicePlayer.getManagedPlayer().getTickPosition()/len);

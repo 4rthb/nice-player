@@ -49,12 +49,8 @@ public class Translator {
         staccatoParser.addParserListener(midiParserListener);
         staccatoParser.addParserListener(tool);
 
-        System.out.print("Pattern: ");
-        System.out.println(pattern);
         try {
-            System.out.print("Sequence: ");
             staccatoParser.parse(pattern);
-            System.out.println(midiParserListener.getSequence());
             managedPlayer.start(midiParserListener.getSequence());
             Notes.resetOctaveCounter();
         } catch (Exception e) {
@@ -87,7 +83,6 @@ public class Translator {
             }
             actionHandler(((Commands) tokenList.get(cursor)).getAction());
         }
-        System.out.println(completePattern);
         return new Pattern(completePattern);
     }
 
