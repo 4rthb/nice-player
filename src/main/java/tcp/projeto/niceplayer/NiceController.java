@@ -11,6 +11,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import org.jfugue.midi.MidiFileManager;
 import org.jfugue.player.ManagedPlayer;
 import org.jfugue.player.ManagedPlayerListener;
 import org.jfugue.player.Player;
@@ -19,6 +20,7 @@ import javax.sound.midi.Sequence;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Optional;
 
 public class NiceController {
@@ -124,6 +126,17 @@ public class NiceController {
                 new FileChooser.ExtensionFilter("Arquivo MIDI", "*.mid")
         );
         File selectedFile = fileChooser.showSaveDialog(userInput.getScene().getWindow());
+        if(selectedFile == null) return;
+
+        Parser.parseText(userInput.getText());
+        Translator translator = new Translator();
+        Sequence sequence = translator.getSequence(Parser.tokens);
+
+        try {
+            MidiFileManager.save(sequence, selectedFile);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

@@ -8,6 +8,8 @@ import org.jfugue.player.Player;
 import org.jfugue.theory.Note;
 import org.staccato.StaccatoParser;
 
+import javax.sound.midi.Sequence;
+
 public class Translator {
     private Player player;
     private ManagedPlayer managedPlayer;
@@ -35,6 +37,7 @@ public class Translator {
         managedPlayer.reset();
     }
 
+
     public void play(ArrayList<Tokens> parsedInput) {
         tokenList = parsedInput;
         Pattern pattern = getMusic();
@@ -45,7 +48,7 @@ public class Translator {
 
         System.out.print("Pattern: ");
         System.out.println(pattern);
-            try {
+        try {
             System.out.print("Sequence: ");
             staccatoParser.parse(pattern);
             System.out.println(midiParserListener.getSequence());
@@ -56,6 +59,19 @@ public class Translator {
             e.printStackTrace();
         }
     }
+
+    public Sequence getSequence(ArrayList<Tokens> parsedInput) {
+        tokenList = parsedInput;
+        Pattern pattern = getMusic();
+
+        StaccatoParser staccatoParser = new StaccatoParser();
+        MidiParserListener midiParserListener = new MidiParserListener();
+        staccatoParser.addParserListener(midiParserListener);
+        staccatoParser.parse(pattern);
+
+        return midiParserListener.getSequence();
+    }
+
     public Pattern getMusic() {
         completePattern = "";
 
