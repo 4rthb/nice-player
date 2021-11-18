@@ -2,7 +2,7 @@ package tcp.projeto.niceplayer;
 import java.util.regex.Pattern;
 
 public class Commands extends Tokens { 
-    private Action MappingTokenToAction() {
+    private Action mappingTokenToAction() {
         Pattern letter = Pattern.compile("[a-zA-Z]");
         Pattern notes = Pattern.compile("[ABCDEFG]");
         Pattern validVogal = Pattern.compile("[OoIiUu]");
@@ -53,6 +53,6 @@ public class Commands extends Tokens {
         NONE
     }
     public Action getAction() {
-        return MappingTokenToAction();
+        return mappingTokenToAction();
     }
 }
