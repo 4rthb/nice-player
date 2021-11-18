@@ -16,7 +16,7 @@ public class Translator {
     private ManagedPlayer managedPlayer;
     private String completePattern;
     private ArrayList<Tokens> tokenList;
-    private int volume = 15, instrument = 0, cursor;
+    private int volume = 31, instrument = 0, cursor;
 
     public void setPlayer(Player player){
         this.player = player;
@@ -134,7 +134,7 @@ public class Translator {
     private void volumeUpHandler() {
         volume *= 2;
         if (volume > 128) {
-            volume = 15;
+            volume = 31;
         }
         completePattern += " :CON(7, " + volume + ")";
     }

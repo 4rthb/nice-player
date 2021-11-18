@@ -65,7 +65,7 @@
         </Button>
 
 
-        <ProgressBar fx:id="progressBar" GridPane.columnIndex="6" GridPane.rowIndex="3" maxWidth="Infinity" GridPane.hgrow="ALWAYS"
+        <ProgressBar fx:id="progressBar" GridPane.columnIndex="8" GridPane.rowIndex="3" maxWidth="Infinity" GridPane.hgrow="ALWAYS"
                      minWidth="100" GridPane.fillWidth="true" styleClass="progress-bar-primary"/>
 
         <Button fx:id="trashButton" onAction="#onTrash" GridPane.columnIndex="11" GridPane.rowIndex="3" GridPane.columnSpan="1" GridPane.hgrow="NEVER" styleClass="btn, btn-default">
