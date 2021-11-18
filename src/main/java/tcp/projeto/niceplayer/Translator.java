@@ -6,6 +6,7 @@ import org.jfugue.pattern.Pattern;
 import org.jfugue.player.ManagedPlayer;
 import org.jfugue.player.Player;
 import org.jfugue.theory.Note;
+import org.jfugue.tools.ComputeDurationForEachTrackTool;
 import org.staccato.StaccatoParser;
 
 import javax.sound.midi.Sequence;
@@ -38,13 +39,15 @@ public class Translator {
     }
 
 
-    public void play(ArrayList<Tokens> parsedInput) {
+    public double play(ArrayList<Tokens> parsedInput) {
         tokenList = parsedInput;
         Pattern pattern = getMusic();
 
         StaccatoParser staccatoParser = new StaccatoParser();
         MidiParserListener midiParserListener = new MidiParserListener();
+        ComputeDurationForEachTrackTool tool = new ComputeDurationForEachTrackTool();
         staccatoParser.addParserListener(midiParserListener);
+        staccatoParser.addParserListener(tool);
 
         System.out.print("Pattern: ");
         System.out.println(pattern);
@@ -58,6 +61,7 @@ public class Translator {
             System.out.println("Invalid MIDI detected!");
             e.printStackTrace();
         }
+        return tool.getDurations()[0];
     }
 
     public Sequence getSequence(ArrayList<Tokens> parsedInput) {

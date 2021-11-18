@@ -28,9 +28,10 @@ public class MusicPlayer {
     public void reset() {
         translator.reset();
     }
-    public void play(ArrayList<Tokens> parsedInput){
+    public double play(ArrayList<Tokens> parsedInput){
         if(!translator.isPlaying()){
-            translator.play(parsedInput);
+            return translator.play(parsedInput);
         }
+        return 0;
     }
 }
