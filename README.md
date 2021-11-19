@@ -18,6 +18,7 @@ Detailed usage:
 -Run NicePlayer.exe
 
 -Type your input in the box following the NicePlayer notation scheme.
+
 -For more info, click the "help" button.
 
 
