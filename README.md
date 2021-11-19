@@ -52,4 +52,4 @@ Detailed usage:
 
 Projeto realizado por Arthur P Baumgardt, Pedro Henrique Kopper, Rodrigo Neves e Sofia Popsin Gomes
 
-Feito com <3
+Feito com ![image](https://user-images.githubusercontent.com/60479541/142547241-1e8714d1-2d02-4824-83c0-2a4a1b8274d3.png)
