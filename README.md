@@ -47,3 +47,9 @@ Detailed usage:
 -Name your file.
 
 -Click "Save"
+
+---
+
+Projeto realizado por Arthur P Baumgardt, Pedro Henrique Kopper, Rodrigo Neves e Sofia Popsin Gomes
+
+Feito com <3
